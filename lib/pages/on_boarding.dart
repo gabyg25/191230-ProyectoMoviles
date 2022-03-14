@@ -42,31 +42,27 @@ class _OnBoardingState extends State<OnBoarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(color: Colors.white,
-          child: SizedBox(
-            width: double.infinity,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 8,
-                  child: PageView.builder(
-                    onPageChanged: (value) {setState(() {pages = value;});},
-                    itemCount: onBoardingDatas.length,
-                    itemBuilder: (context, index) => ContentBoarding(
-                      text: onBoardingDatas[index]["text"],
-                      text1: onBoardingDatas[index]["text1"],
-                      image: onBoardingDatas[index]["image"],
-                    ))),
-                Expanded(
-                  flex: 2,
-                  child: Column(children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(onBoardingDatas.length,
-                            (index) => newMethod(index: index)),
-                      )],
-                  )),
+      body: SafeArea(child: Container(color: Colors.white,
+        child: SizedBox(
+          width: double.infinity, child: Column(
+            children: [
+              Expanded(
+                flex: 8,
+                child: PageView.builder(
+                  onPageChanged: (value) {setState(() {pages = value;});},
+                  itemCount: onBoardingDatas.length,
+                  itemBuilder: (context, index) => ContendorBoarding(
+                    text: onBoardingDatas[index]["text"],
+                    text1: onBoardingDatas[index]["text1"],
+                    image: onBoardingDatas[index]["image"],
+                  ))),
+              Expanded(
+                flex: 2,
+                child: Column(children: [Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(onBoardingDatas.length,
+                    (index) => newMethod(index: index)),
+                )])),
                 _buttonBoarding(index: pages),
               ],
             ))),
@@ -114,8 +110,8 @@ class _OnBoardingState extends State<OnBoarding> {
   }
 }
 
-class ContentBoarding extends StatelessWidget {
-  const ContentBoarding({
+class ContendorBoarding extends StatelessWidget {
+  const ContendorBoarding({
     Key key,
     this.text,
     this.text1,
@@ -128,13 +124,12 @@ class ContentBoarding extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Column(
-          children: <Widget>[
-            Image.asset(image, width: 290, height: 290),
-            Text(text, style: const TextStyle(color: ColorsSelect.txtBoHe,fontSize: 21)),
-            Padding(padding: const EdgeInsets.all(5),
-              child: Text(text1, textAlign: TextAlign.center,
-                style: const TextStyle(color: ColorsSelect.txtBoSubHe,fontSize: 15))),
+        Column(children: <Widget>[
+          Image.asset(image, width: 290, height: 290),
+          Text(text, style: const TextStyle(color: ColorsSelect.txtBoHe,fontSize: 21)),
+          Padding(padding: const EdgeInsets.all(5),
+            child: Text(text1, textAlign: TextAlign.center,
+              style: const TextStyle(color: ColorsSelect.txtBoSubHe,fontSize: 15))),
           ])],
     );
   }
