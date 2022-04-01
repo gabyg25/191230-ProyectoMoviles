@@ -39,7 +39,7 @@ class _RecoveryPasswordState extends State<RecoveryPassword> {
                 textAlign: TextAlign.left,
                 style: TextStyle(
                     fontSize: 16,
-                    color: ColorsSelect.btnTextBo1,
+                    color: Colors.black,
                     fontWeight: FontWeight.bold)),
           ),
           Container(
