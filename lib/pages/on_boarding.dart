@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mvp_all/pages/progress_view.dart';
 import 'package:mvp_all/styles/style.dart';
 
 class OnBoarding extends StatefulWidget {
@@ -10,6 +12,8 @@ class OnBoarding extends StatefulWidget {
 
 class _OnBoardingState extends State<OnBoarding> {
   int pages = 0;
+  
+  PageController pageController = PageController();
 
   List<Map<String, String>> onBoardingDatas = [
     {
@@ -42,71 +46,98 @@ class _OnBoardingState extends State<OnBoarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Container(color: Colors.white,
-        child: SizedBox(
-          width: double.infinity, child: Column(
-            children: [
-              Expanded(
-                flex: 8,
-                child: PageView.builder(
-                  onPageChanged: (value) {setState(() {pages = value;});},
-                  itemCount: onBoardingDatas.length,
-                  itemBuilder: (context, index) => ContendorBoarding(
-                    text: onBoardingDatas[index]["text"],
-                    text1: onBoardingDatas[index]["text1"],
-                    image: onBoardingDatas[index]["image"],
-                  ))),
-              Expanded(
-                flex: 2,
-                child: Column(children: [Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(onBoardingDatas.length,
-                    (index) => newMethod(index: index)),
-                )])),
-                _buttonBoarding(index: pages),
-              ],
-            ))),
-      ));
+        body: SafeArea(
+          child: Container(
+            color: Colors.white,
+            child: SizedBox(width: double.infinity,
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                      flex: 4,
+                      child: PageView.builder(
+                          onPageChanged: (value) {
+                            setState(() {
+                              pages = value;
+                            });
+                          },
+                          controller: pageController,
+                          itemCount: onBoardingDatas.length,
+                          itemBuilder: (context, index) => ContendorBoarding(
+                                text: onBoardingDatas[index]["text"],
+                                text1: onBoardingDatas[index]["text1"],
+                                image: onBoardingDatas[index]["image"],
+                              ))),
+                  Expanded(
+                      flex: 2,
+                      child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Row(mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(onBoardingDatas.length,
+                              (index) => newMethod(index: index)))
+                      ])),
+                  _buttonBoarding(pages, (onBoardingDatas.length - 1)),
+                ],
+              ))),
+    ));
   }
 
   AnimatedContainer newMethod({int index}) {
     return AnimatedContainer(
-      duration: kThemeAnimationDuration,
-      margin: const EdgeInsets.only(right: 8),
-      height: 4,
-      width: pages == index ? 20 : 20,
-      decoration: BoxDecoration(
-        color: pages == index
-            ? ColorsSelect.paginatorNext
-            : ColorsSelect.paginator,
-        borderRadius: BorderRadius.circular(3),
-      ));
+        duration: kThemeAnimationDuration,
+        margin: const EdgeInsets.only(right: 8),
+        height: 4,
+        width: pages == index ? 20 : 20,
+        decoration: BoxDecoration(
+          color: pages == index
+              ? ColorsSelect.paginatorNext
+              : ColorsSelect.paginator,
+          borderRadius: BorderRadius.circular(3),
+        ));
   }
 
-  _buttonBoarding({int index}) {
-    if (index != 4) {
-      return Container(
-        margin: const EdgeInsets.only(bottom: 30),
-        height: 50, width: 350,
-        decoration: BoxDecoration(
+  _buttonBoarding(int index, int size) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 30),
+      height: 50,
+      width: 350,
+      decoration: BoxDecoration(
+          color: ColorsSelect.btnBackgroundBo1,
           borderRadius: BorderRadius.circular(30),
-          shape: BoxShape.rectangle,
-          border: Border.all(color: ColorsSelect.btnTextBo1, width: 3)),
-        alignment: Alignment.center,
-        child: const Text('Siguiente', style: TextStyle(fontSize: 17, color: Colors.black)),
-      );
-
-    } else {
-      return Container(
-        margin: const EdgeInsets.only(bottom: 30),
-        height: 50, width: 350,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: ColorsSelect.btnBackgroundBo2),
-        alignment: Alignment.center,
-        child: const Text('Continuar', style: TextStyle(fontSize: 17, color: Colors.white)),
-      );
-    }
+          border: Border.all(
+              color: index == size
+                  ? ColorsSelect.btnBackgroundBo2
+                  : ColorsSelect.btnTextBo1)),
+      child: ElevatedButton(
+        onPressed: () {
+          if (index == size) {
+            showCupertinoModalPopup(
+                context: context,
+                builder: (context) => const ProgressView("OnBoarding"));
+          } else {
+            if (index < size && index >= 0) {
+              pages++;
+              setState(() {
+                pageController.jumpToPage(pages);
+              });
+            }
+          }
+        },
+        child: Text(index == size ? 'Continuar' : 'Siguiente',
+            style: TextStyle(
+                color: index == size
+                    ? ColorsSelect.btnTextBo2
+                    : ColorsSelect.btnTextBo1,
+                fontSize: 17)),
+        style: ElevatedButton.styleFrom(
+          primary: index == size
+              ? ColorsSelect.btnBackgroundBo2
+              : ColorsSelect.btnBackgroundBo1,
+          elevation: 0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        ),
+      ),
+    );
   }
 }
 
@@ -119,6 +150,7 @@ class ContendorBoarding extends StatelessWidget {
   }) : super(key: key);
 
   final String text, text1, image;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -126,11 +158,14 @@ class ContendorBoarding extends StatelessWidget {
       children: <Widget>[
         Column(children: <Widget>[
           Image.asset(image, width: 290, height: 290),
-          Text(text, style: const TextStyle(color: ColorsSelect.txtBoHe,fontSize: 21)),
-          Padding(padding: const EdgeInsets.all(5),
-            child: Text(text1, textAlign: TextAlign.center,
-              style: const TextStyle(color: ColorsSelect.txtBoSubHe,fontSize: 15))),
-          ])],
+          Text(text,style:const TextStyle(color: ColorsSelect.txtBoHe, fontSize: 21)),
+          Padding(
+              padding: const EdgeInsets.all(5),
+              child: Text(text1,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: ColorsSelect.txtBoSubHe, fontSize: 15))),
+        ])
+      ],
     );
   }
 }
