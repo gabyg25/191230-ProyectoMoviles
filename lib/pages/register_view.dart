@@ -37,7 +37,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
         Container(
           width: double.infinity,
           height: 50,
-          margin: const EdgeInsets.only(top: 43, left: 20, bottom: 10.0),
+          margin: const EdgeInsets.only(top: 35, left: 20, bottom: 3.0),
           child: const Text('Crea una cuenta para empezar a usar la app',
               textAlign: TextAlign.left,
               style: TextStyle(
@@ -57,7 +57,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
         Container(
           width: 335,
           height: 70,
-          margin: const EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.only(bottom: 1),
           child: TextFormField(
             decoration: InputDecoration(
                 labelText: 'Nombre',
@@ -82,7 +82,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
         Container(
           width: 335,
           height: 70,
-          margin: const EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.only(bottom: 1),
           child: TextFormField(
             decoration: InputDecoration(
                 labelText: 'Dirección de correo',
@@ -107,7 +107,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
         Container(
           width: 335,
           height: 70,
-          margin: const EdgeInsets.only(bottom: 10.0),
+          margin: const EdgeInsets.only(bottom: 1.0),
           child: TextFormField(
             obscureText: visibilidad,
             obscuringCharacter: '*',
@@ -134,7 +134,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
         Container(
           width: 320,
           height: 50,
-          margin: const EdgeInsets.only(left: 15),
+          margin: const EdgeInsets.only(left: 12),
           child: const Text(
             'La contraseña debe contener caracteres, números y símbolos con un minimo de 6 caracteres',
             style: TextStyle(color: ColorsSelect.btnTextBo1),
@@ -142,16 +142,16 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
         ),
         Container(
           width: 335,
-          height: 50,
-          margin: const EdgeInsets.only(left: 20, right: 50),
+          height: 80,
+          margin: const EdgeInsets.only(left: 20, right: 30),
           child: Row(
             children: [
               Row(
                 children: [
                   Container(
                       width: 30,
-                      height: 50,
-                      margin: const EdgeInsets.only(right: 10, bottom: 14),
+                      height: 60,
+                      margin: const EdgeInsets.only(right: 10),
                       child: Checkbox(
                         value: values,
                         side: const BorderSide(
@@ -168,8 +168,8 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
               ),
               Row(children: [
                 SizedBox(
-                  width: 260,
-                  height: 50,
+                  width: 280,
+                  height: 60,
                   child: Row(children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -178,9 +178,9 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
                         Row(
                           children: [
                             const Text(
-                              'al Registrarme, acepto los',
+                              'Al Registrarme, acepto los',
                               style: TextStyle(
-                                  fontSize: 15, color: ColorsSelect.btnTextBo1),
+                                  fontSize: 14, color: ColorsSelect.btnTextBo1),
                             ),
                             TextButton(
                                 onPressed: () {
@@ -192,40 +192,39 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
                                 child: const Text(
                                   'terminos y',
                                   style: TextStyle(
-                                    fontSize: 15,
-                                    color: ColorsSelect.paginatorNext,
-                                    fontWeight: FontWeight.bold),
-                                )
-                            )
+                                      fontSize: 14,
+                                      color: ColorsSelect.paginatorNext,
+                                      fontWeight: FontWeight.bold),
+                                )),
                           ],
                         ),
-                        Row(children: [
-                          TextButton(
-                            onPressed: () {
-                            }, 
-                            child: const Text(
-                              'condiciones',
+                        Row(
+                          children: [
+                            TextButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'condiciones',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: ColorsSelect.paginatorNext,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                            const Text(
+                              'y la',
                               style: TextStyle(
-                                fontSize: 15, 
-                                color: ColorsSelect.paginatorNext,
-                                fontWeight: FontWeight.bold),
-                            )),
+                                  fontSize: 14, color: ColorsSelect.btnTextBo1),
+                            ),
                             TextButton(
-                              onPressed: () {}, 
-                              child: const Text(
-                                'y la',
-                                style: TextStyle(fontSize: 15, color: ColorsSelect.btnTextBo1),
-                              )),
-                            TextButton(
-                              onPressed: () {}, 
-                              child: const Text(
-                                'politica de privacidad',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: ColorsSelect.paginatorNext,
-                                  fontWeight: FontWeight.bold),
-                              ))
-                        ],)
+                                onPressed: () {},
+                                child: const Text(
+                                  'politica de privacidad',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: ColorsSelect.paginatorNext,
+                                      fontWeight: FontWeight.bold),
+                                ))
+                          ],
+                        )
                       ],
                     )
                   ]),
@@ -237,15 +236,14 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
         Container(
           width: 335,
           height: 50,
-          margin: const EdgeInsets.only(top: 50),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20)),
+          margin: const EdgeInsets.only(top: 15),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
           child: ElevatedButton(
             onPressed: () {},
             style: ElevatedButton.styleFrom(
                 primary: ColorsSelect.btnBackgroundBo2,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30))),
+                    borderRadius: BorderRadius.circular(30))),
             child: const Text(
               'Crear Cuenta',
               style: TextStyle(fontSize: 18),
@@ -253,22 +251,22 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(top: 10.0),
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const Text('¿Ya tiene Cuenta?', style: TextStyle(fontSize: 15.0)),
+            margin: const EdgeInsets.only(top: 10.0),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              const Text('¿Ya tiene Cuenta?', style: TextStyle(fontSize: 15.0)),
               TextButton(
-                onPressed: () {
-                  showCupertinoModalPopup(
-                    context: context, builder: (context) => const ProgressView('RegistroInicio'));
+                  onPressed: () {
+                    showCupertinoModalPopup(
+                        context: context,
+                        builder: (context) =>
+                            const ProgressView('RegistroInicio'));
                   },
                   child: const Text('Iniciar Sesion',
                       style: TextStyle(
                           fontSize: 15.0,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xfffc1460))
-                  ))
-            ])
-        ),
+                          color: Color(0xfffc1460))))
+            ])),
       ])),
     ));
   }

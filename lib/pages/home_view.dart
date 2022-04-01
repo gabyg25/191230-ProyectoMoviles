@@ -62,7 +62,11 @@ class IniciarSesion extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 30.0),
             child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  showCupertinoModalPopup(
+                        context: context,
+                        builder: (context) => const ProgressView('Register'));
+                },
                 child: Row(children: const [
                   Padding(padding: EdgeInsets.symmetric(horizontal: 10.0)),
                   Icon(Icons.mail_rounded, color: Color(0xff64686f)),
